@@ -12,15 +12,21 @@ class BeerController extends Controller
     }
 
     public function store(Request $request) {
-        Beer::create($request->validate([
+        $b = Beer::create($request->validate([
             'name' => ['required', 'min:3', 'max:20'],
-            'brewery' => ['required', 'min:5', 'max:25'],
-            'ABV' => ['required'],
-            'image_url' => []
+            'nameOfFile',
+            'typeOfBeer' => ['required', 'min:2', 'max:30'],
+            'brewery' => ['required', 'min:3', 'max:30'],
+            'ABV' => ['required', 'integer', 'between:1,100']
         ]));
 
-
-        return redirect(route('beers.store'));
+        if ($request->hasFile('image')) {
+            $name = $request->file('image')->getClientOriginalName();
+            $b->nameOfFile = $name;
+            $b->save();
+            $request->file('image')->storeAs('public/images', $b->id . ' ' . $name);
+        }
+        return redirect(route('beers.index', ['beer' => $b]));
     }
 
     public function show(Beer $beer)
@@ -42,10 +48,18 @@ class BeerController extends Controller
     public function update(Beer $beer, Request $request) {
         $beer->update($request->validate([
             'name' => ['required', 'min:3', 'max:20'],
-            'brewery' => ['required', 'min:5', 'max:25'],
-            'ABV' => ['required'],
-            'image_url' => []
+            'nameOfFile',
+            'typeOfBeer' => ['required', 'min:2', 'max:30'],
+            'brewery' => ['required', 'min:4', 'max:25'],
+            'ABV' => ['required', 'between: 0, 100']
         ]));
+
+        if ($request->hasFile('image')) {
+            $name = $request->file('image')->getClientOriginalName();
+            $beer->nameOfFile = $name;
+            $beer->save();
+            $request->file('image')->storeAs('public/images', $beer->id . ' ' . $name);
+        }
 
         return redirect(route('beers.index', $beer));
     }

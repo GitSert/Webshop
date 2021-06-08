@@ -15,6 +15,10 @@ class CreateSpiritsTable extends Migration
     {
         Schema::create('spirits', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('nameOfFile')->default('');
+            $table->string('company');
+            $table->integer('ABV');
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@
 
             @foreach($spirits as $s)
                 <ul>
-                    <img src="/img/{{ $s->image_path }}.png">
+                    <img src="{{ asset('/storage/images/' . $s->id . ' ' . $s->nameOfFile) }}" alt="image" title="image">
                     <p>
                         Name: {{ $s->name }}
                     </p>

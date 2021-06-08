@@ -15,11 +15,12 @@ class CreateBeersTable extends Migration
     {
         Schema::create('beers', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name');
+            $table->string('nameOfFile')->default('');
+            $table->string('typeOfBeer');
             $table->string('brewery');
             $table->integer('ABV');
-            $table->string('image_path');
+            $table->timestamps();
         });
     }
 

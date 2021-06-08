@@ -15,7 +15,7 @@
 
             @foreach($wines as $w)
                 <ul>
-                    <img src="/img/{{ $w->image_path }}.png">
+                    <img src="{{ asset('/storage/images/' . $w->id . ' ' . $w->nameOfFile) }}" alt="image" title="image">
                     <p>
                         Name: {{ $w->name }}
                     </p>

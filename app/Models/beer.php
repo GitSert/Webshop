@@ -9,5 +9,5 @@ class beer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'brewery', 'ABV', 'image_url'];
+    protected $fillable = ['name', 'nameOfFile', 'typeOfBeer', 'brewery', 'ABV'];
 }

@@ -12,15 +12,20 @@ class WineController extends Controller
     }
 
     public function store(Request $request) {
-        Wine::create($request->validate([
+        $w = Wine::create($request->validate([
             'name' => ['required', 'min:3', 'max:20'],
+            'nameOfFile',
             'winery' => ['required', 'min:5', 'max:25'],
-            'ABV' => ['required'],
-            'image_url' => []
+            'ABV' => ['required', 'digits_between: 0, 100']
         ]));
 
-
-        return redirect(route('wines.store'));
+        if ($request->hasFile('image')) {
+            $name = $request->file('image')->getClientOriginalName();
+            $w->nameOfFile = $name;
+            $w->save();
+            $request->file('image')->storeAs('public/images', $w->id . ' ' . $name);
+        }
+        return redirect(route('wines.index', ['wine' => $w]));
     }
 
     public function show(Wine $wine)
@@ -42,9 +47,9 @@ class WineController extends Controller
     public function update(Wine $wine, Request $request) {
         $wine->update($request->validate([
             'name' => ['required', 'min:3', 'max:20'],
+            'nameOfFile',
             'winery' => ['required', 'min:5', 'max:25'],
-            'ABV' => ['required'],
-            'image_url' => []
+            'ABV' => ['required', 'digits_between: 0, 100']
         ]));
 
         return redirect(route('wines.index', $wine));

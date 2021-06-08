@@ -12,15 +12,21 @@ class SpiritController extends Controller
     }
 
     public function store(Request $request) {
-        Spirit::create($request->validate([
+        $s = Spirit::create($request->validate([
             'name' => ['required', 'min:3', 'max:20'],
+            'nameOfFile',
             'company' => ['required', 'min:5', 'max:25'],
-            'ABV' => ['required'],
-            'image_url' => []
+            'ABV' => ['required', 'digits_between: 0, 100']
         ]));
 
+        if ($request->hasFile('image')) {
+            $name = $request->file('image')->getClientOriginalName();
+            $s->nameOfFile = $name;
+            $s->save();
+            $request->file('image')->storeAs('public/images', $s->id . ' ' . $name);
+        }
 
-        return redirect(route('spirits.store'));
+        return redirect(route('spirits.store', ['spirit' => $s]));
     }
 
     public function show(Spirit $spirit)
@@ -42,9 +48,9 @@ class SpiritController extends Controller
     public function update(Spirit $spirit, Request $request) {
         $spirit->update($request->validate([
             'name' => ['required', 'min:3', 'max:20'],
+            'nameOfFile',
             'company' => ['required', 'min:5', 'max:25'],
-            'ABV' => ['required'],
-            'image_url' => []
+            'ABV' => ['required', 'digits_between: 0, 100']
         ]));
 
         return redirect(route('spirits.index', $spirit));

@@ -10,7 +10,7 @@
             <h1 style="margin-top: 5%">Edit a spirit</h1>
 
             <div style="margin: 5%">
-                <form method="POST" action="{{ route('spirits.update', $spirit) }}">
+                <form method="POST" enctype="multipart/form-data" action="{{ route('spirits.update', $spirit) }}">
                     @csrf
                     @method('PUT')
 
@@ -32,12 +32,11 @@
                     <p class="help is-danger">{{ $errors->first('ABV') }}</p>
                     @enderror
 
-                    <label for="image_path">Image link:</label><br>
-                    <textarea name="image_path" class="text-field @error('image_path') is-danger @enderror" id="image_path" required> {{ $spirit->image_path }} </textarea><br/>
-                    @error('image_path')
-                    <p class="help is-danger">{{ $errors->first('image_path') }}</p>
+                    <label for="image">Upload image</label>
+                    <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg" name="image" class="text-field @error('image') is-danger @enderror" id="image" required>
+                    @error ('image')
+                    <p class="help is-danger">{{ $errors->first('image') }}</p>
                     @enderror
-                    <br><br>
 
                     <input type="submit" value="Save">
                 </form>

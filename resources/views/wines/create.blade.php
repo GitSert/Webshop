@@ -12,7 +12,7 @@
             id="shadow"
         >
 
-            <form method="POST" action="/wines">
+            <form method="POST" enctype="multipart/form-data" action="/wines">
                 @csrf
                 <label for="name">Wine name:</label><br>
                 <textarea name="name" class="text-field @error('name') is-danger @enderror" id="name" required>{{ old('name') }}</textarea><br/>
@@ -32,14 +32,13 @@
                 <p class="help is-danger">{{ $errors->first('ABV') }}</p>
                 @enderror
 
-                <label for="image_path">Image path:</label><br>
-                <textarea name="image_path" class="text-field  @error('image_path') is-danger @enderror" id="image_path" required>{{ old('image_path') }}</textarea><br/>
-                @error ('image_path')
-                <p class="help is-danger">{{ $errors->first('image_path') }}</p>
+                <label for="image">Upload image</label>
+                <input type="file" accept="image/png, image/gif, image/jpeg, image/jpg" name="image" class="text-field @error('image') is-danger @enderror" id="image" required>
+                @error ('image')--}}
+                <p class="help is-danger">{{ $errors->first('image') }}</p>
                 @enderror
-
-                <br><br>
-                <input type="submit" value="Submit">
+                <br>
+                <input type="submit" value="Submit" class="submitButton">
             </form>
 
         </div>

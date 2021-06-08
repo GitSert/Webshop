@@ -9,5 +9,5 @@ class spirit extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'company', 'ABV', 'image_url'];
+    protected $fillable = ['name', 'nameOfFile', 'company', 'ABV'];
 }

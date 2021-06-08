@@ -15,6 +15,10 @@ class CreateWinesTable extends Migration
     {
         Schema::create('wines', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('nameOfFile')->default('');
+            $table->string('winery');
+            $table->integer('ABV');
             $table->timestamps();
         });
     }

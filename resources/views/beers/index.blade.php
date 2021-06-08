@@ -15,12 +15,15 @@
 
             @foreach($beers as $b)
                 <ul>
-                    <img src="/img/{{ $b->image_path }}.png">
+                    <img src="{{ asset('/storage/images/' . $b->id . ' ' . $b->nameOfFile) }}" alt="image" title="image">
                     <p>
                         Name: {{ $b->name }}
                     </p>
                     <p>
                         Brewery: {{ $b->brewery }}
+                    </p>
+                    <p>
+                        Type of beer: {{ $b->typeOfBeer }}
                     </p>
                     <p>
                         ABV: {{ $b->ABV }}%
