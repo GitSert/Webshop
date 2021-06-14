@@ -1,6 +1,5 @@
 {
     "private": true,
-	"main": "index.php",
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
