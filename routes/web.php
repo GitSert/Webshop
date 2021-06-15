@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});->middleware(['auth'])->name('index');
+});
 
 Route::resource('/beers', BeerController::class);
 Route::resource('/wines', WineController::class);
