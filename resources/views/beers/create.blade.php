@@ -15,7 +15,7 @@
             <form method="POST" enctype="multipart/form-data" action="/beers">
                 @csrf
                 <label for="name">Beer name:</label><br>
-                <input name="name" class="text-field @error('name') is-danger @enderror" id="name" required>{{ old('name') }}<br/>
+                <input name="name {{ old('name') }}" class="text-field @error('name') is-danger @enderror" id="name" required><br/>
                 @error('name')
                 <p class="help is-danger">{{ $errors->first('name') }}</p>
                 @enderror
